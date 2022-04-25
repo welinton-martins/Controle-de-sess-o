@@ -1,0 +1,29 @@
+<%-- any content can be specified here e.g.: --%>
+<%@ page pageEncoding="UTF-8" %>
+<%
+    if(request.getParameter("logon")!=null){
+        session.setAttribute("username", request.getParameter("username"));
+        response.sendRedirect(request.getRequestURI());
+    }
+    if(request.getParameter("logoff")!=null){
+        session.removeAttribute("username");
+        response.sendRedirect(request.getRequestURI());
+    }
+%>
+<h1>WelintonApp</h1>
+<%if(session.getAttribute("username")!=null) {%>
+<form>
+    <a href="index.jsp">INDEX</a> |
+    <a href="about.jsp">ABOUT</a> |
+    <a href="loteria.jsp">DICAS PARA LOTERIA</a> |
+    Bem vindo, <b><%= session.getAttribute("username") %></b>
+    <input type="submit" name="logoff" value="Sair"/>
+</form>
+</hr>
+<%}else{%>
+<form>
+    <a href="about.jsp">ABOUT</a> |
+    <input type="text" name="username" />
+    <input type="submit" name="logon" value="Entrar"/>
+</form>
+<%}%>
